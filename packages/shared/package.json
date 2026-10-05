@@ -13,10 +13,9 @@
   },
   "scripts": {
     "build": "tsc",
-"test": "vitest run --config ../../vitest.config.ts",
-  "test:watch": "vitest --config ../../vitest.config.ts",
-  "test:coverage": "vitest run --coverage --config ../../vitest.config.ts",
-
+    "test": "vitest run --config ../../vitest.config.ts",
+    "test:watch": "vitest --config ../../vitest.config.ts",
+    "test:coverage": "vitest run --coverage --config ../../vitest.config.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",

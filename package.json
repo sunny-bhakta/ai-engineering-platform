@@ -1,5 +1,5 @@
 {
-  "name": "ai-engineering-platform",
+  "name": "ai-platform-platform",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -29,7 +29,16 @@
     "typecheck": "pnpm -r typecheck",
     "clean": "pnpm -r clean",
     "clean:modules": "node ./scripts/clean-node-modules.mjs",
-    "clean:modules:dry": "node ./scripts/clean-node-modules.mjs --dry-run"
+    "clean:modules:dry": "node ./scripts/clean-node-modules.mjs --dry-run",
+    "deploy:test": "node ./scripts/deploy-test.mjs",
+    "deploy:test:auto": "node ./scripts/deploy-test.mjs --auto-approve",
+    "smoke:test": "node ./scripts/smoke-test.mjs",
+    "destroy:test": "node ./scripts/destroy-test.mjs",
+    "destroy:test:auto": "node ./scripts/destroy-test.mjs --auto-approve",
+    "db:migrate": "pnpm --filter @ai-platform/database db:migrate",
+    "db:reset": "pnpm --filter @ai-platform/database db:reset",
+    "db:seed": "pnpm --filter @ai-platform/database db:seed",
+    "db:test": "pnpm --filter @ai-platform/database test"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

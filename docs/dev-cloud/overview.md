@@ -1,14 +1,14 @@
 Yes. I’d make the document more implementation-oriented: **exact monorepo structure + responsibility of every folder/package + feature explanation + concepts covered + implementation order**.
 
- # AI Engineering Platform
+# AI Engineering Platform
 
- ## 1\. Project Overview
+## 1\. Project Overview
 
- Build a production-oriented **AI Engineering Workspace** that combines modern AI application and agent engineering concepts into one application.
+Build a production-oriented **AI Engineering Workspace** that combines modern AI application and agent engineering concepts into one application.
 
- The platform allows a developer/team to:
+The platform allows a developer/team to:
 
- - Chat with AI
+- Chat with AI
 - Upload and search internal documentation
 - Connect GitHub/Jira/Slack/databases
 - Ask questions about their codebase
@@ -23,11 +23,11 @@ Yes. I’d make the document more implementation-oriented: **exact monorepo stru
 - Evaluate AI quality
 - Monitor AI execution, latency and cost
 
- The project is intentionally designed as a **large monorepo** so that the architecture also teaches production TypeScript/Node.js monorepo design.
+The project is intentionally designed as a **large monorepo** so that the architecture also teaches production TypeScript/Node.js monorepo design.
 
 ---
 
- # 2\. Complete Monorepo Structure
+# 2\. Complete Monorepo Structure
 
 ```
 ai-engineering-platform/
@@ -316,15 +316,15 @@ ai-engineering-platform/
 
 ---
 
- # 3\. Applications
+# 3\. Applications
 
- ## `apps/web`
+## `apps/web`
 
- The user-facing application.
+The user-facing application.
 
- ### Responsibilities
+### Responsibilities
 
- - Authentication UI
+- Authentication UI
 - Chat interface
 - Streaming responses
 - Document management
@@ -336,7 +336,7 @@ ai-engineering-platform/
 - Usage/cost dashboard
 - Project management
 
- ### Main screens
+### Main screens
 
 ```
 Dashboard
@@ -354,13 +354,13 @@ Settings
 
 ---
 
- # 4\. `apps/api`
+# 4\. `apps/api`
 
- The main backend/API.
+The main backend/API.
 
- Responsibilities:
+Responsibilities:
 
- - authentication
+- authentication
 - authorization
 - API endpoints
 - conversation management
@@ -371,7 +371,7 @@ Settings
 - usage tracking
 - streaming
 
- Example:
+Example:
 
 ```
 POST /chat
@@ -383,17 +383,17 @@ POST /approvals/:id/approve
 GET  /usage
 ```
 
- The API should orchestrate application behavior but should not contain all AI logic.
+The API should orchestrate application behavior but should not contain all AI logic.
 
- AI-specific functionality belongs in reusable packages.
+AI-specific functionality belongs in reusable packages.
 
 ---
 
- # 5\. `apps/worker`
+# 5\. `apps/worker`
 
- Handles asynchronous operations.
+Handles asynchronous operations.
 
- Example:
+Example:
 
 ```
 PDF upload
@@ -413,9 +413,9 @@ Generate embeddings
 Store vectors
 ```
 
- Other jobs:
+Other jobs:
 
- - document ingestion
+- document ingestion
 - embedding generation
 - web crawling
 - evaluation
@@ -425,9 +425,9 @@ Store vectors
 
 ---
 
- # 6\. `apps/ingestion`
+# 6\. `apps/ingestion`
 
- Dedicated ingestion pipeline.
+Dedicated ingestion pipeline.
 
 ```
 Document
@@ -447,9 +447,9 @@ Embedding
 Vector store
 ```
 
- Support:
+Support:
 
- - PDF
+- PDF
 - Markdown
 - HTML
 - TXT
@@ -459,11 +459,11 @@ Vector store
 
 ---
 
- # 7\. `packages/ai`
+# 7\. `packages/ai`
 
- The model abstraction layer.
+The model abstraction layer.
 
- Do not let the entire application directly depend on a single provider.
+Do not let the entire application directly depend on a single provider.
 
 ```
 Application
@@ -476,9 +476,9 @@ Model interface
     └── Gemini
 ```
 
- Features:
+Features:
 
- - chat completion
+- chat completion
 - streaming
 - structured output
 - embeddings
@@ -489,13 +489,13 @@ Model interface
 
 ---
 
- # 8\. `packages/rag`
+# 8\. `packages/rag`
 
- Contains the RAG engine.
+Contains the RAG engine.
 
- Responsibilities:
+Responsibilities:
 
- - chunking
+- chunking
 - embeddings
 - retrieval
 - reranking
@@ -504,7 +504,7 @@ Model interface
 - citations
 - multimodal retrieval
 
- Example:
+Example:
 
 ```
 User Query
@@ -526,11 +526,11 @@ Answer + Citations
 
 ---
 
- # 9\. `packages/vector-store`
+# 9\. `packages/vector-store`
 
- Responsible for vector storage.
+Responsible for vector storage.
 
- Initially:
+Initially:
 
 ```
 PostgreSQL
@@ -538,9 +538,9 @@ PostgreSQL
 pgvector
 ```
 
- Responsibilities:
+Responsibilities:
 
- - insert embeddings
+- insert embeddings
 - similarity search
 - metadata filtering
 - indexes
@@ -549,11 +549,11 @@ pgvector
 
 ---
 
- # 10\. `packages/agents`
+# 10\. `packages/agents`
 
- Contains LangGraph workflows.
+Contains LangGraph workflows.
 
- Example agents:
+Example agents:
 
 ```
 ResearchAgent
@@ -563,7 +563,7 @@ DocumentationAgent
 SupervisorAgent
 ```
 
- Each graph contains:
+Each graph contains:
 
 ```
 State
@@ -577,11 +577,11 @@ Interrupts
 
 ---
 
- # 11\. `packages/tools`
+# 11\. `packages/tools`
 
- Central tool registry.
+Central tool registry.
 
- Example:
+Example:
 
 ```
 GitHub
@@ -594,7 +594,7 @@ Filesystem
 Internal APIs
 ```
 
- Every tool should have:
+Every tool should have:
 
 ```
 Name
@@ -607,15 +607,15 @@ Retry policy
 Audit policy
 ```
 
- Never allow the LLM alone to decide whether it has permission to execute a sensitive operation.
+Never allow the LLM alone to decide whether it has permission to execute a sensitive operation.
 
 ---
 
- # 12\. `packages/mcp`
+# 12\. `packages/mcp`
 
- MCP integration.
+MCP integration.
 
- Support:
+Support:
 
 ```
 MCP Client
@@ -625,31 +625,31 @@ MCP Tools
 MCP Prompts
 ```
 
- Create at least one custom MCP server to understand the protocol rather than only consuming existing servers.
+Create at least one custom MCP server to understand the protocol rather than only consuming existing servers.
 
 ---
 
- # 13\. `packages/memory`
+# 13\. `packages/memory`
 
- Memory architecture.
+Memory architecture.
 
- ## Short-term
+## Short-term
 
- Current workflow state.
+Current workflow state.
 
- ## Long-term
+## Long-term
 
- Information retained between sessions.
+Information retained between sessions.
 
- ## Semantic
+## Semantic
 
- Facts/preferences.
+Facts/preferences.
 
- ## Episodic
+## Episodic
 
- Past events/interactions.
+Past events/interactions.
 
- Example:
+Example:
 
 ```
 User
@@ -665,32 +665,32 @@ Future retrieval
 
 ---
 
- # 14\. `packages/guardrails`
+# 14\. `packages/guardrails`
 
- Security around AI.
+Security around AI.
 
- Implement:
+Implement:
 
- ### Input guard
+### Input guard
 
- Detect:
+Detect:
 
- - malicious prompts
+- malicious prompts
 - prompt injection
 - oversized inputs
 - unsafe content
 
- ### Output guard
+### Output guard
 
- Validate:
+Validate:
 
- - schema
+- schema
 - sensitive information
 - policy violations
 
- ### Tool guard
+### Tool guard
 
- Check:
+Check:
 
 ```
 User
@@ -706,11 +706,11 @@ Execution
 
 ---
 
- # 15\. `packages/auth`
+# 15\. `packages/auth`
 
- Authentication and authorization.
+Authentication and authorization.
 
- Implement:
+Implement:
 
 ```
 User
@@ -719,7 +719,7 @@ Role
 Permission
 ```
 
- Example:
+Example:
 
 ```
 Viewer
@@ -728,15 +728,15 @@ Manager
 Admin
 ```
 
- Authorization must happen server-side.
+Authorization must happen server-side.
 
 ---
 
- # 16\. `packages/evaluation`
+# 16\. `packages/evaluation`
 
- Dedicated AI quality system.
+Dedicated AI quality system.
 
- Build datasets like:
+Build datasets like:
 
 ```
 Question
@@ -746,24 +746,24 @@ Expected tools
 Expected answer characteristics
 ```
 
- Evaluate:
+Evaluate:
 
- - RAG quality
+- RAG quality
 - agent quality
 - tool selection
 - hallucination
 - citations
 - task completion
 
- Run evaluations whenever important AI behavior changes.
+Run evaluations whenever important AI behavior changes.
 
 ---
 
- # 17\. `packages/observability`
+# 17\. `packages/observability`
 
- Track every important AI operation.
+Track every important AI operation.
 
- Example trace:
+Example trace:
 
 ```
 Request
@@ -785,9 +785,9 @@ Request
  └── final response
 ```
 
- Track:
+Track:
 
- - latency
+- latency
 - token usage
 - cost
 - errors
@@ -798,11 +798,11 @@ Request
 
 ---
 
- # 18\. `packages/cache`
+# 18\. `packages/cache`
 
- Caching layer.
+Caching layer.
 
- Implement:
+Implement:
 
 ```
 Exact response cache
@@ -811,19 +811,19 @@ Retrieval cache
 Semantic cache
 ```
 
- Always consider whether caching could expose another user's data.
+Always consider whether caching could expose another user's data.
 
- Cache keys must include appropriate tenant/user/project context.
+Cache keys must include appropriate tenant/user/project context.
 
 ---
 
- # 19\. `packages/queue`
+# 19\. `packages/queue`
 
- Background processing abstraction.
+Background processing abstraction.
 
- Use Redis/BullMQ or equivalent.
+Use Redis/BullMQ or equivalent.
 
- Example:
+Example:
 
 ```
 Queue
@@ -834,9 +834,9 @@ Queue
  └── cleanup
 ```
 
- Learn:
+Learn:
 
- - retries
+- retries
 - exponential backoff
 - dead-letter jobs
 - idempotency
@@ -844,11 +844,11 @@ Queue
 
 ---
 
- # 20\. `packages/database`
+# 20\. `packages/database`
 
- PostgreSQL access.
+PostgreSQL access.
 
- Tables might include:
+Tables might include:
 
 ```
 users
@@ -873,29 +873,29 @@ audit_logs
 
 ---
 
- # 21\. `packages/storage`
+# 21\. `packages/storage`
 
- Object storage for:
+Object storage for:
 
- - PDFs
+- PDFs
 - images
 - uploaded files
 - generated reports
 - source documents
 
- Use S3-compatible storage.
+Use S3-compatible storage.
 
 ---
 
- # 22\. Core User Features
+# 22\. Core User Features
 
- ## AI Chat
+## AI Chat
 
- User asks:
+User asks:
 
- > Explain our authentication architecture.
+> Explain our authentication architecture.
 
- The system:
+The system:
 
 ```
 Question
@@ -911,9 +911,9 @@ Cited answer
 
 ---
 
- ## Knowledge Base
+## Knowledge Base
 
- Users upload:
+Users upload:
 
 ```
 PDF
@@ -923,19 +923,19 @@ Architecture docs
 API docs
 ```
 
- The ingestion system processes them asynchronously.
+The ingestion system processes them asynchronously.
 
 ---
 
- ## Codebase Assistant
+## Codebase Assistant
 
- Connect GitHub.
+Connect GitHub.
 
- Ask:
+Ask:
 
- > Where is payment authentication implemented?
+> Where is payment authentication implemented?
 
- The AI:
+The AI:
 
 ```
 Search repository
@@ -949,13 +949,13 @@ Answer with file references
 
 ---
 
- ## Debugging Agent
+## Debugging Agent
 
- User:
+User:
 
- > Why did checkout start failing after yesterday's deployment?
+> Why did checkout start failing after yesterday's deployment?
 
- Agent:
+Agent:
 
 ```
 Search docs
@@ -973,13 +973,13 @@ Generate investigation
 
 ---
 
- ## Ticket Agent
+## Ticket Agent
 
- User:
+User:
 
- > Create a ticket for this bug.
+> Create a ticket for this bug.
 
- The agent prepares:
+The agent prepares:
 
 ```
 Title
@@ -990,7 +990,7 @@ Affected service
 Suggested fix
 ```
 
- Then requests approval.
+Then requests approval.
 
 ```
 Agent
@@ -1002,11 +1002,11 @@ Jira
 
 ---
 
- # 23\. RAG Features
+# 23\. RAG Features
 
- Implement progressively.
+Implement progressively.
 
- ### Level 1
+### Level 1
 
 ```
 Embedding
@@ -1016,7 +1016,7 @@ Vector search
 LLM
 ```
 
- ### Level 2
+### Level 2
 
 ```
 Hybrid search
@@ -1026,7 +1026,7 @@ Reranking
 LLM
 ```
 
- ### Level 3
+### Level 3
 
 ```
 Query rewriting
@@ -1042,7 +1042,7 @@ Context compression
 LLM
 ```
 
- ### Level 4
+### Level 4
 
 ```
 Multimodal RAG
@@ -1052,11 +1052,11 @@ Agentic RAG
 
 ---
 
- # 24\. Agent Features
+# 24\. Agent Features
 
- Implement:
+Implement:
 
- - tool calling
+- tool calling
 - planning
 - loops
 - state
@@ -1067,7 +1067,7 @@ Agentic RAG
 - checkpoints
 - multi-agent delegation
 
- Example:
+Example:
 
 ```
 START
@@ -1089,9 +1089,9 @@ Final answer
 
 ---
 
- # 25\. Multi-Agent Features
+# 25\. Multi-Agent Features
 
- Use specialist agents.
+Use specialist agents.
 
 ```
                  Supervisor
@@ -1104,31 +1104,31 @@ Final answer
        RAG         GitHub      Deployment
 ```
 
- The supervisor decides which specialist should work.
+The supervisor decides which specialist should work.
 
 ---
 
- # 26\. Multimodal Features
+# 26\. Multimodal Features
 
- Allow users to upload:
+Allow users to upload:
 
- - screenshots
+- screenshots
 - architecture diagrams
 - PDFs
 - images
 - tables
 
- Example:
+Example:
 
- > Explain this architecture diagram and identify potential bottlenecks.
+> Explain this architecture diagram and identify potential bottlenecks.
 
- The vision model analyzes the image and combines it with retrieved documentation.
+The vision model analyzes the image and combines it with retrieved documentation.
 
 ---
 
- # 27\. Deep Research Feature
+# 27\. Deep Research Feature
 
- Build a research agent:
+Build a research agent:
 
 ```
 Question
@@ -1152,15 +1152,15 @@ Citations
 Report
 ```
 
- This combines many concepts into one feature.
+This combines many concepts into one feature.
 
 ---
 
- # 28\. GraphRAG Feature
+# 28\. GraphRAG Feature
 
- Extract entities and relationships.
+Extract entities and relationships.
 
- Example:
+Example:
 
 ```
 PaymentService
@@ -1176,15 +1176,15 @@ depends-on
 AuthService
 ```
 
- The agent can answer relationship-oriented questions that traditional vector retrieval may not handle well.
+The agent can answer relationship-oriented questions that traditional vector retrieval may not handle well.
 
 ---
 
- # 29\. AI Security
+# 29\. AI Security
 
- The system should defend against:
+The system should defend against:
 
- - prompt injection
+- prompt injection
 - indirect prompt injection
 - malicious documents
 - data exfiltration
@@ -1194,21 +1194,21 @@ AuthService
 - cross-tenant data access
 - secret leakage
 
- Important rule:
+Important rule:
 
 ```
 LLM output ≠ trusted input
 ```
 
- Validate all AI-generated tool calls before execution.
+Validate all AI-generated tool calls before execution.
 
 ---
 
- # 30\. Evaluation System
+# 30\. Evaluation System
 
- Create evaluation datasets.
+Create evaluation datasets.
 
- Example:
+Example:
 
 ```
 Input:
@@ -1225,7 +1225,7 @@ Must mention JWT
 Must cite architecture document
 ```
 
- Measure:
+Measure:
 
 ```
 Retrieval quality
@@ -1240,9 +1240,9 @@ Latency
 
 ---
 
- # 31\. Observability Dashboard
+# 31\. Observability Dashboard
 
- Display:
+Display:
 
 ```
 Total AI Requests
@@ -1256,13 +1256,13 @@ Agent Runs
 Model Usage
 ```
 
- Allow drilling into individual agent traces.
+Allow drilling into individual agent traces.
 
 ---
 
- # 32\. Cost Optimization
+# 32\. Cost Optimization
 
- Implement model routing.
+Implement model routing.
 
 ```
 Simple task
@@ -1282,9 +1282,9 @@ Vision
 Vision model
 ```
 
- Track cost per:
+Track cost per:
 
- - user
+- user
 - organization
 - project
 - agent
@@ -1293,11 +1293,11 @@ Vision model
 
 ---
 
- # 33\. Production Reliability
+# 33\. Production Reliability
 
- Implement:
+Implement:
 
- - timeout
+- timeout
 - retries
 - exponential backoff
 - circuit breaker
@@ -1309,32 +1309,32 @@ Vision model
 
 ---
 
- # 34\. Testing Strategy
+# 34\. Testing Strategy
 
- ## Unit
+## Unit
 
- Test:
+Test:
 
- - tools
+- tools
 - parsers
 - chunkers
 - retrieval
 - validators
 - authorization
 
- ## Integration
+## Integration
 
- Test:
+Test:
 
- - PostgreSQL
+- PostgreSQL
 - pgvector
 - Redis
 - LLM integration
 - tool execution
 
- ## E2E
+## E2E
 
- Test:
+Test:
 
 ```
 Login
@@ -1350,13 +1350,13 @@ Retrieve sources
 Receive answer
 ```
 
- ## AI Evaluation
+## AI Evaluation
 
- Test actual AI behavior separately from deterministic application tests.
+Test actual AI behavior separately from deterministic application tests.
 
 ---
 
- # 35\. Test Structure
+# 35\. Test Structure
 
 ```
 tests/
@@ -1367,19 +1367,19 @@ tests/
 └── fixtures/
 ```
 
- Vitest:
+Vitest:
 
 ```
 pnpm vitest run
 ```
 
- All workspace package tests:
+All workspace package tests:
 
 ```
 pnpm -r --if-present test
 ```
 
- Root-level Vitest can also run tests across:
+Root-level Vitest can also run tests across:
 
 ```
 apps/**
@@ -1388,7 +1388,7 @@ packages/**
 
 ---
 
- # 36\. Root Vitest Configuration
+# 36\. Root Vitest Configuration
 
 ```
 import { defineConfig } from 'vitest/config';
@@ -1407,13 +1407,13 @@ export default defineConfig({
 });
 ```
 
- Then:
+Then:
 
 ```
 pnpm vitest run
 ```
 
- For only API:
+For only API:
 
 ```
 pnpm vitest run apps/api
@@ -1421,9 +1421,9 @@ pnpm vitest run apps/api
 
 ---
 
- # 37\. Development Infrastructure
+# 37\. Development Infrastructure
 
- Use Docker Compose for local development.
+Use Docker Compose for local development.
 
 ```
 docker-compose.yml
@@ -1436,7 +1436,7 @@ minio
 observability
 ```
 
- PostgreSQL:
+PostgreSQL:
 
 ```
 Application DB
@@ -1444,7 +1444,7 @@ Application DB
 pgvector
 ```
 
- Redis:
+Redis:
 
 ```
 Cache
@@ -1452,7 +1452,7 @@ Cache
 Queue
 ```
 
- MinIO:
+MinIO:
 
 ```
 Object storage
@@ -1460,9 +1460,9 @@ Object storage
 
 ---
 
- # 38\. CI/CD
+# 38\. CI/CD
 
- Pipeline:
+Pipeline:
 
 ```
 Pull Request
@@ -1484,19 +1484,19 @@ Security Checks
 Deploy
 ```
 
- Important:
+Important:
 
- AI evaluation should be part of CI for critical agent behavior.
+AI evaluation should be part of CI for critical agent behavior.
 
 ---
 
- # 39\. Recommended Implementation Order
+# 39\. Recommended Implementation Order
 
- Do not build everything simultaneously.
+Do not build everything simultaneously.
 
- ## Stage 1 — Foundation
+## Stage 1 — Foundation
 
- - [ ] Monorepo
+- [ ] Monorepo
 - [ ] Next.js
 - [ ] API
 - [ ] PostgreSQL
@@ -1504,18 +1504,18 @@ Deploy
 - [ ] Testing
 - [ ] Docker
 
- ## Stage 2 — LLM
+## Stage 2 — LLM
 
- - [ ] Model abstraction
+- [ ] Model abstraction
 - [ ] OpenAI integration
 - [ ] Streaming
 - [ ] Structured output
 - [ ] Prompt management
 - [ ] Token tracking
 
- ## Stage 3 — RAG
+## Stage 3 — RAG
 
- - [ ] Document upload
+- [ ] Document upload
 - [ ] Parsing
 - [ ] Chunking
 - [ ] Embeddings
@@ -1523,73 +1523,73 @@ Deploy
 - [ ] Retrieval
 - [ ] Citations
 
- ## Stage 4 — Advanced RAG
+## Stage 4 — Advanced RAG
 
- - [ ] Hybrid search
+- [ ] Hybrid search
 - [ ] Reranking
 - [ ] Query rewriting
 - [ ] Multi-query
 - [ ] Context compression
 
- ## Stage 5 — Tools
+## Stage 5 — Tools
 
- - [ ] Tool registry
+- [ ] Tool registry
 - [ ] GitHub
 - [ ] Jira
 - [ ] Slack
 - [ ] Database
 - [ ] Web search
 
- ## Stage 6 — Agents
+## Stage 6 — Agents
 
- - [ ] LangChain
+- [ ] LangChain
 - [ ] LangGraph
 - [ ] Agent state
 - [ ] Tool calling
 - [ ] Loops
 - [ ] Checkpoints
 
- ## Stage 7 — Memory
+## Stage 7 — Memory
 
- - [ ] Short-term memory
+- [ ] Short-term memory
 - [ ] Long-term memory
 - [ ] Semantic memory
 - [ ] Episodic memory
 
- ## Stage 8 — Safety
+## Stage 8 — Safety
 
- - [ ] Human approval
+- [ ] Human approval
 - [ ] RBAC
 - [ ] Guardrails
 - [ ] Prompt injection defense
 - [ ] Tool permissions
 - [ ] Audit logs
 
- ## Stage 9 — MCP
+## Stage 9 — MCP
 
- - [ ] MCP client
+- [ ] MCP client
 - [ ] MCP server
 - [ ] MCP tools
 - [ ] MCP resources
 
- ## Stage 10 — Multi-Agent
+## Stage 10 — Multi-Agent
 
- - [ ] Supervisor
+- [ ] Supervisor
 - [ ] Research agent
 - [ ] Coding agent
 - [ ] Operations agent
 
- ## Stage 11 — Advanced AI
+## Stage 11 — Advanced AI
 
- - [ ] Multimodal
+- [ ] Multimodal
 - [ ] Web research
 - [ ] GraphRAG
 - [ ] Deep research
 - [ ] Agentic RAG
 
- ## Stage 12 — Production AI
+## Stage 12 — Production AI
 
- - [ ] Evaluation
+- [ ] Evaluation
 - [ ] Observability
 - [ ] Cost tracking
 - [ ] Model routing
@@ -1600,9 +1600,9 @@ Deploy
 
 ---
 
- # 40\. Final Architecture
+# 40\. Final Architecture
 
- The finished system should conceptually look like:
+The finished system should conceptually look like:
 
 ```
                               USER
@@ -1659,13 +1659,13 @@ Deploy
 
 ---
 
- # 41\. What You Will Learn
+# 41\. What You Will Learn
 
- After completing the project, you should understand:
+After completing the project, you should understand:
 
- ### LLM Engineering
+### LLM Engineering
 
- - LLM APIs
+- LLM APIs
 - model providers
 - streaming
 - structured output
@@ -1673,9 +1673,9 @@ Deploy
 - model routing
 - fallbacks
 
- ### RAG Engineering
+### RAG Engineering
 
- - embeddings
+- embeddings
 - vector databases
 - chunking
 - retrieval
@@ -1686,9 +1686,9 @@ Deploy
 - multimodal RAG
 - GraphRAG
 
- ### Agent Engineering
+### Agent Engineering
 
- - tool calling
+- tool calling
 - LangChain
 - LangGraph
 - agent state
@@ -1700,9 +1700,9 @@ Deploy
 - multi-agent systems
 - MCP
 
- ### Production AI
+### Production AI
 
- - evaluation
+- evaluation
 - observability
 - security
 - guardrails
@@ -1713,9 +1713,9 @@ Deploy
 - background processing
 - scaling
 
- ### General Engineering
+### General Engineering
 
- - TypeScript
+- TypeScript
 - Node.js
 - monorepos
 - PostgreSQL
@@ -1728,13 +1728,13 @@ Deploy
 
 ---
 
- # 42\. Final Project Scenario
+# 42\. Final Project Scenario
 
- The final demo should be something like:
+The final demo should be something like:
 
- > "Investigate why checkout failures increased after yesterday's deployment. Search our engineering documentation, inspect recent GitHub changes, check deployment information, search related Jira tickets, and compare the evidence. Give me a cited report and recommend the next action."
+> "Investigate why checkout failures increased after yesterday's deployment. Search our engineering documentation, inspect recent GitHub changes, check deployment information, search related Jira tickets, and compare the evidence. Give me a cited report and recommend the next action."
 
- The system should execute:
+The system should execute:
 
 ```
 User
@@ -1776,15 +1776,15 @@ Evaluation
 Observability
 ```
 
- This single workflow demonstrates the majority of the important concepts in the project.
+This single workflow demonstrates the majority of the important concepts in the project.
 
 ---
 
- # 43\. Definition of Success
+# 43\. Definition of Success
 
- The project is complete when:
+The project is complete when:
 
- - [ ] A user can authenticate.
+- [ ] A user can authenticate.
 - [ ] A user can create an organization/project.
 - [ ] A user can upload documents.
 - [ ] Documents are processed asynchronously.
@@ -1816,11 +1816,11 @@ Observability
 
 ---
 
- # 44\. Core Principle
+# 44\. Core Principle
 
- The goal is not to build a collection of AI demos.
+The goal is not to build a collection of AI demos.
 
- Build **one coherent production-style platform** where every AI concept solves a real problem:
+Build **one coherent production-style platform** where every AI concept solves a real problem:
 
 ```
 RAG
@@ -1866,6 +1866,6 @@ Security
 → protects users and data
 ```
 
- That is the architecture to build toward.
+That is the architecture to build toward.
 
- I’d treat this document as the **master specification** and implement it in stages rather than creating all the folders on day one. The folder structure can start smaller and grow as each capability is introduced.
+I’d treat this document as the **master specification** and implement it in stages rather than creating all the folders on day one. The folder structure can start smaller and grow as each capability is introduced.
