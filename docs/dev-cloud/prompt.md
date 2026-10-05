@@ -1,26 +1,24 @@
 ## Master context prompt
 
-
-
 ---
 
- # 0\. Master Context — Paste This Into Every New Session
+# 0\. Master Context — Paste This Into Every New Session
 
- Use this at the beginning of **every session**, before the block-specific prompt.
+Use this at the beginning of **every session**, before the block-specific prompt.
 
- AI Platform — Master Context Prompt
+AI Platform — Master Context Prompt
 
 You are working on the same ongoing project across multiple ChatGPT sessions.
 
- ## Project
+## Project
 
- We are building a production-oriented AI Engineering Platform called `ai-engineering-platform`.
+We are building a production-oriented AI Engineering Platform called `ai-engineering-platform`.
 
- The goal is to learn and implement modern AI engineering concepts in one coherent TypeScript monorepo.
+The goal is to learn and implement modern AI engineering concepts in one coherent TypeScript monorepo.
 
- The system will eventually support:
+The system will eventually support:
 
- - LLM providers
+- LLM providers
 - streaming
 - structured outputs
 - prompt management
@@ -64,21 +62,21 @@ You are working on the same ongoing project across multiple ChatGPT sessions.
 - CI/CD
 - production deployment
 
- ## Architecture principle
+## Architecture principle
 
- Backend first.
+Backend first.
 
- The Next.js frontend will be implemented later.
+The Next.js frontend will be implemented later.
 
- Do NOT redesign the architecture unless there is a strong technical reason.
+Do NOT redesign the architecture unless there is a strong technical reason.
 
- Keep AI functionality in reusable packages rather than putting all AI logic inside `apps/api`.
+Keep AI functionality in reusable packages rather than putting all AI logic inside `apps/api`.
 
- ## Monorepo
+## Monorepo
 
- Use:
+Use:
 
- - pnpm workspaces
+- pnpm workspaces
 - TypeScript
 - Node.js
 - Vitest
@@ -87,52 +85,52 @@ You are working on the same ongoing project across multiple ChatGPT sessions.
 - pgvector
 - Redis
 
- Expected high-level structure:
+Expected high-level structure:
 
- apps/\
- api/\
- worker/\
- ingestion/\
- web/ # implemented later
+apps/\
+api/\
+worker/\
+ingestion/\
+web/ # implemented later
 
- packages/\
- ai/\
- agents/\
- rag/\
- vector-store/\
- tools/\
- mcp/\
- memory/\
- database/\
- auth/\
- guardrails/\
- evaluation/\
- observability/\
- queue/\
- cache/\
- storage/\
- shared/\
- config/
+packages/\
+ai/\
+agents/\
+rag/\
+vector-store/\
+tools/\
+mcp/\
+memory/\
+database/\
+auth/\
+guardrails/\
+evaluation/\
+observability/\
+queue/\
+cache/\
+storage/\
+shared/\
+config/
 
- tests/\
- e2e/\
- integration/\
- evaluation/\
- fixtures/
+tests/\
+e2e/\
+integration/\
+evaluation/\
+fixtures/
 
- infrastructure/\
- docker/\
- kubernetes/\
- terraform/\
- monitoring/
+infrastructure/\
+docker/\
+kubernetes/\
+terraform/\
+monitoring/
 
- docs/
+docs/
 
- scripts/
+scripts/
 
- ## Important architecture rules
+## Important architecture rules
 
- 1. `apps/api` is the HTTP/application orchestration layer.
+1. `apps/api` is the HTTP/application orchestration layer.
 2. `packages/ai` owns model/provider abstraction.
 3. `packages/rag` owns RAG logic.
 4. `packages/vector-store` owns vector database operations.
@@ -149,72 +147,72 @@ You are working on the same ongoing project across multiple ChatGPT sessions.
 15. `packages/cache` owns caching.
 16. `packages/shared` contains only genuinely shared types/schemas/utilities.
 
- Do not duplicate functionality between packages.
+Do not duplicate functionality between packages.
 
- ## Dependency principle
+## Dependency principle
 
- Prefer:
+Prefer:
 
- apps/api\
- ↓\
- packages/\*\
- ↓\
- infrastructure
+apps/api\
+↓\
+packages/\*\
+↓\
+infrastructure
 
- Do not make packages depend on `apps/api`.
+Do not make packages depend on `apps/api`.
 
- Avoid circular dependencies.
+Avoid circular dependencies.
 
- ## Database
+## Database
 
- Use PostgreSQL.
+Use PostgreSQL.
 
- Use pgvector for embeddings.
+Use pgvector for embeddings.
 
- Use Redis for caching and background jobs.
+Use Redis for caching and background jobs.
 
- ## Testing
+## Testing
 
- Use Vitest for unit and integration tests.
+Use Vitest for unit and integration tests.
 
- Use Playwright later for browser E2E tests.
+Use Playwright later for browser E2E tests.
 
- Every implementation block should include appropriate tests.
+Every implementation block should include appropriate tests.
 
- ## Development
+## Development
 
- Everything should work locally first.
+Everything should work locally first.
 
- Use Docker Compose for infrastructure.
+Use Docker Compose for infrastructure.
 
- Do not introduce Kubernetes/cloud infrastructure unless specifically requested.
+Do not introduce Kubernetes/cloud infrastructure unless specifically requested.
 
- ## Coding style
+## Coding style
 
- Use TypeScript.
+Use TypeScript.
 
- Prefer clear production-quality code over clever abstractions.
+Prefer clear production-quality code over clever abstractions.
 
- Use strict TypeScript.
+Use strict TypeScript.
 
- Use schema validation where external/user/LLM data enters the system.
+Use schema validation where external/user/LLM data enters the system.
 
- Never trust LLM-generated tool arguments.
+Never trust LLM-generated tool arguments.
 
- ## Important instruction
+## Important instruction
 
- Before changing code:
+Before changing code:
 
- 1. Inspect the existing repository structure.
+1. Inspect the existing repository structure.
 2. Reuse existing abstractions.
 3. Do not recreate files that already exist.
 4. Do not silently change architecture.
 5. Explain any required architectural change before making it.
 6. Keep compatibility with previously implemented blocks.
 
- When providing implementation:
+When providing implementation:
 
- - show the files to create/change
+- show the files to create/change
 - provide complete code for changed files
 - explain important decisions
 - include tests
@@ -223,25 +221,25 @@ You are working on the same ongoing project across multiple ChatGPT sessions.
 - mention Docker dependencies
 - mention how to verify the feature
 
- Do not implement future blocks prematurely.
+Do not implement future blocks prematurely.
 
- We are implementing the project incrementally.
+We are implementing the project incrementally.
 
 ---
 
- # 1\. Block 1 — Monorepo Foundation
+# 1\. Block 1 — Monorepo Foundation
 
- **Topic:** Workspace, TypeScript, linting, formatting, Vitest, Docker.
+**Topic:** Workspace, TypeScript, linting, formatting, Vitest, Docker.
 
- Block 1 — Monorepo Foundation Prompt
+Block 1 — Monorepo Foundation Prompt
 
 Using the master project context above, implement BLOCK 1 only: the monorepo foundation.
 
- Create a production-quality pnpm TypeScript monorepo.
+Create a production-quality pnpm TypeScript monorepo.
 
- Requirements:
+Requirements:
 
- - pnpm workspace
+- pnpm workspace
 - root package.json
 - pnpm-workspace.yaml
 - tsconfig.base.json
@@ -257,49 +255,43 @@ Using the master project context above, implement BLOCK 1 only: the monorepo fou
 - packages/shared
 - packages/config
 
- Do NOT implement LLM, RAG, agents, MCP or frontend yet.
+Do NOT implement LLM, RAG, agents, MCP or frontend yet.
 
- The API should have a basic health endpoint.
+The API should have a basic health endpoint.
 
- The worker should start successfully.
+The worker should start successfully.
 
- The ingestion app should have a basic entry point.
+The ingestion app should have a basic entry point.
 
- Create appropriate package.json files and workspace dependencies.
+Create appropriate package.json files and workspace dependencies.
 
- Add a simple Vitest test.
+Add a simple Vitest test.
 
- At the end provide:
+At the end provide:
 
- 1. Complete file tree.
-2. Every file that was created/changed.
-3. Complete code.
-4. Installation commands.
-5. Test commands.
-6. Build commands.
-7. Explanation of workspace dependency relationships.
+1.Complete file tree. 2. Every file that was created/changed. 3. Complete code. 4. Installation commands. 5. Test commands. 6. Build commands. 7. Explanation of workspace dependency relationships.
 
- Everything must run locally.
+Everything must run locally.
 
 ---
 
- # 2\. Block 2 — Database
+# 2\. Block 2 — Database
 
- **Topic:** PostgreSQL, migrations, repositories, schema.
+**Topic:** PostgreSQL, migrations, repositories, schema.
 
- Block 2 — Database Foundation Prompt
+Block 2 — Database Foundation Prompt
 
 Using the master project context and the existing repository, implement BLOCK 2 only: the database layer.
 
- Create/extend:
+Create/extend:
 
- packages/database
+packages/database
 
- Use PostgreSQL.
+Use PostgreSQL.
 
- Requirements:
+Requirements:
 
- - database connection
+- database connection
 - configuration
 - migrations
 - schema
@@ -308,9 +300,9 @@ Using the master project context and the existing repository, implement BLOCK 2 
 - health check
 - transaction support
 
- Create initial entities:
+Create initial entities:
 
- - users
+- users
 - organizations
 - memberships
 - projects
@@ -319,9 +311,9 @@ Using the master project context and the existing repository, implement BLOCK 2 
 - documents
 - document\_chunks
 
- Keep the schema extensible for future:
+Keep the schema extensible for future:
 
- - embeddings
+- embeddings
 - agents
 - agent\_runs
 - tool\_calls
@@ -331,38 +323,38 @@ Using the master project context and the existing repository, implement BLOCK 2 
 - usage
 - audit\_logs
 
- Do not implement RAG yet.
+Do not implement RAG yet.
 
- Do not implement authentication yet.
+Do not implement authentication yet.
 
- Include:
+Include:
 
- - migration strategy
+- migration strategy
 - seed strategy
 - tests
 - Docker instructions
 - environment variables
 - commands to migrate/reset/test
 
- Maintain the existing architecture.
+Maintain the existing architecture.
 
 ---
 
- # 3\. Block 3 — AI Model Layer
+# 3\. Block 3 — AI Model Layer
 
- **Topic:** OpenAI/Anthropic/Gemini abstraction.
+**Topic:** OpenAI/Anthropic/Gemini abstraction.
 
- Block 3 — AI Model Abstraction Prompt
+Block 3 — AI Model Abstraction Prompt
 
 Implement BLOCK 3 only: the AI model abstraction.
 
- Create:
+Create:
 
- packages/ai
+packages/ai
 
- Requirements:
+Requirements:
 
- - provider abstraction
+- provider abstraction
 - OpenAI provider
 - Anthropic provider
 - Gemini provider
@@ -375,46 +367,46 @@ Implement BLOCK 3 only: the AI model abstraction.
 - retry handling
 - normalized errors
 
- The rest of the application must depend on the internal AI abstraction instead of directly importing provider SDKs.
+The rest of the application must depend on the internal AI abstraction instead of directly importing provider SDKs.
 
- Design a clean interface such as:
+Design a clean interface such as:
 
- AI model\
- Chat model\
- Embedding model
+AI model\
+Chat model\
+Embedding model
 
- Do not implement RAG yet.
+Do not implement RAG yet.
 
- Do not implement agents yet.
+Do not implement agents yet.
 
- Do not implement frontend.
+Do not implement frontend.
 
- Add unit tests with mocked providers.
+Add unit tests with mocked providers.
 
- Include example API usage from apps/api.
+Include example API usage from apps/api.
 
- Include environment variables.
+Include environment variables.
 
- Make sure secrets never appear in source code.
+Make sure secrets never appear in source code.
 
 ---
 
- # 4\. Block 4 — Basic Chat API
+# 4\. Block 4 — Basic Chat API
 
- **Topic:** LLM chat \+ streaming.
+**Topic:** LLM chat \+ streaming.
 
- Block 4 — Basic Chat API Prompt
+Block 4 — Basic Chat API Prompt
 
 Implement BLOCK 4 only: basic AI chat through the API.
 
- Build:
+Build:
 
- POST /chat\
- POST /chat/stream
+POST /chat\
+POST /chat/stream
 
- Requirements:
+Requirements:
 
- - request validation
+- request validation
 - conversation persistence
 - message persistence
 - AI package integration
@@ -424,86 +416,86 @@ Implement BLOCK 4 only: basic AI chat through the API.
 - request ID
 - logging
 
- The API must use packages/ai.
+The API must use packages/ai.
 
- Do not implement RAG.
+Do not implement RAG.
 
- Do not implement tools.
+Do not implement tools.
 
- Do not implement LangGraph.
+Do not implement LangGraph.
 
- Add unit and integration tests.
+Add unit and integration tests.
 
- Show curl examples for testing the API.
+Show curl examples for testing the API.
 
- Keep the implementation backend-only.
+Keep the implementation backend-only.
 
 ---
 
- # 5\. Block 5 — Document Upload
+# 5\. Block 5 — Document Upload
 
- **Topic:** Storage + document management.
+**Topic:** Storage + document management.
 
- Block 5 — Document Management Prompt
+Block 5 — Document Management Prompt
 
 Implement BLOCK 5 only: document upload and storage.
 
- Create/extend:
+Create/extend:
 
- packages/storage\
- apps/api\
- packages/database
+packages/storage\
+apps/api\
+packages/database
 
- Support:
+Support:
 
- - local file storage initially
+- local file storage initially
 - document metadata
 - upload API
 - download API
 - delete API
 - document status
 
- Document states:
+Document states:
 
- UPLOADED\
- PROCESSING\
- READY\
- FAILED
+UPLOADED\
+PROCESSING\
+READY\
+FAILED
 
- Do not implement embeddings yet.
+Do not implement embeddings yet.
 
- Do not implement vector search yet.
+Do not implement vector search yet.
 
- Design the document model so that future ingestion can process the document asynchronously.
+Design the document model so that future ingestion can process the document asynchronously.
 
- Add validation for:
+Add validation for:
 
- - file size
+- file size
 - MIME type
 - filename
 - organization/project ownership
 
- Add tests.
+Add tests.
 
 ---
 
- # 6\. Block 6 — Queue + Worker
+# 6\. Block 6 — Queue + Worker
 
- **Topic:** Redis/BullMQ/background processing.
+**Topic:** Redis/BullMQ/background processing.
 
- Block 6 — Queue and Worker Prompt
+Block 6 — Queue and Worker Prompt
 
 Implement BLOCK 6 only: background job infrastructure.
 
- Create:
+Create:
 
- packages/queue
+packages/queue
 
- Use Redis and a suitable Node.js queue library.
+Use Redis and a suitable Node.js queue library.
 
- Requirements:
+Requirements:
 
- - queue abstraction
+- queue abstraction
 - job producers
 - workers
 - retries
@@ -512,58 +504,58 @@ Implement BLOCK 6 only: background job infrastructure.
 - failure handling
 - graceful shutdown
 
- Create a document-processing queue.
+Create a document-processing queue.
 
- Flow:
+Flow:
 
- API\
- → Queue\
- → Worker\
- → Document processor
+API\
+→ Queue\
+→ Worker\
+→ Document processor
 
- Do not implement embeddings yet.
+Do not implement embeddings yet.
 
- Add local Docker Redis.
+Add local Docker Redis.
 
- Add tests for queue behavior where practical.
+Add tests for queue behavior where practical.
 
- Explain how to run API, Redis and worker locally.
+Explain how to run API, Redis and worker locally.
 
 ---
 
- # 7\. Block 7 — Document Ingestion
+# 7\. Block 7 — Document Ingestion
 
- **Topic:** loaders, parsing, chunking.
+**Topic:** loaders, parsing, chunking.
 
- Block 7 — Document Ingestion Prompt
+Block 7 — Document Ingestion Prompt
 
 Implement BLOCK 7 only: document ingestion.
 
- Use:
+Use:
 
- apps/ingestion\
- packages/rag
+apps/ingestion\
+packages/rag
 
- Support initially:
+Support initially:
 
- - Markdown
+- Markdown
 - TXT
 - HTML
 - PDF
 
- Build:
+Build:
 
- loader\
- → parser\
- → cleaner\
- → chunker\
- → metadata extraction
+loader\
+→ parser\
+→ cleaner\
+→ chunker\
+→ metadata extraction
 
- Store document chunks in PostgreSQL.
+Store document chunks in PostgreSQL.
 
- Each chunk should have metadata such as:
+Each chunk should have metadata such as:
 
- - document ID
+- document ID
 - project ID
 - organization ID
 - source path
@@ -572,109 +564,109 @@ Implement BLOCK 7 only: document ingestion.
 - content
 - metadata
 
- Do not implement vector search yet.
+Do not implement vector search yet.
 
- Do not implement agents.
+Do not implement agents.
 
- Include unit tests for chunking and parsing.
+Include unit tests for chunking and parsing.
 
 ---
 
- # 8\. Block 8 — Embeddings + pgvector
+# 8\. Block 8 — Embeddings + pgvector
 
- **Topic:** embeddings/vector DB.
+**Topic:** embeddings/vector DB.
 
- Block 8 — Embeddings and Vector Store Prompt
+Block 8 — Embeddings and Vector Store Prompt
 
 Implement BLOCK 8 only: embeddings and vector storage.
 
- Create:
+Create:
 
- packages/vector-store
+packages/vector-store
 
- Extend:
+Extend:
 
- packages/ai\
- packages/rag\
- packages/database
+packages/ai\
+packages/rag\
+packages/database
 
- Use PostgreSQL + pgvector locally.
+Use PostgreSQL + pgvector locally.
 
- Implement:
+Implement:
 
- - embedding generation
+- embedding generation
 - vector storage
 - similarity search
 - metadata filtering
 - tenant/project isolation
 - delete/update vectors
 
- Create appropriate indexes.
+Create appropriate indexes.
 
- Build:
+Build:
 
- document chunk\
- → embedding\
- → pgvector
+document chunk\
+→ embedding\
+→ pgvector
 
- Add tests.
+Add tests.
 
- Explain vector dimensions and how the selected embedding model relates to the database schema.
+Explain vector dimensions and how the selected embedding model relates to the database schema.
 
- Do not implement advanced RAG yet.
+Do not implement advanced RAG yet.
 
 ---
 
- # 9\. Block 9 — Basic RAG
+# 9\. Block 9 — Basic RAG
 
- **Topic:** retrieval-augmented generation.
+**Topic:** retrieval-augmented generation.
 
- Block 9 — Basic RAG Prompt
+Block 9 — Basic RAG Prompt
 
 Implement BLOCK 9 only: basic RAG.
 
- Build:
+Build:
 
- user query\
- → embedding\
- → vector search\
- → relevant chunks\
- → prompt\
- → LLM\
- → answer
+user query\
+→ embedding\
+→ vector search\
+→ relevant chunks\
+→ prompt\
+→ LLM\
+→ answer
 
- Create a reusable RAG service in packages/rag.
+Create a reusable RAG service in packages/rag.
 
- Add:
+Add:
 
- - top-k retrieval
+- top-k retrieval
 - similarity threshold
 - metadata filtering
 - context construction
 - source metadata
 - citations
 
- Extend POST /chat so it can optionally use RAG.
+Extend POST /chat so it can optionally use RAG.
 
- Do not implement agents yet.
+Do not implement agents yet.
 
- Add retrieval tests and integration tests.
+Add retrieval tests and integration tests.
 
- Show an example query using curl.
+Show an example query using curl.
 
 ---
 
- # 10\. Block 10 — Advanced RAG
+# 10\. Block 10 — Advanced RAG
 
- **Topic:** hybrid retrieval, reranking, query rewriting.
+**Topic:** hybrid retrieval, reranking, query rewriting.
 
- Block 10 — Advanced RAG Prompt
+Block 10 — Advanced RAG Prompt
 
 Implement BLOCK 10 only: advanced RAG.
 
- Extend packages/rag with:
+Extend packages/rag with:
 
- - query rewriting
+- query rewriting
 - multi-query retrieval
 - keyword search
 - vector search
@@ -684,46 +676,46 @@ Implement BLOCK 10 only: advanced RAG.
 - metadata filtering
 - citation generation
 
- Architecture:
+Architecture:
 
- Query\
- → rewrite\
- → vector + keyword retrieval\
- → merge\
- → rerank\
- → context compression\
- → LLM\
- → citations
+Query\
+→ rewrite\
+→ vector + keyword retrieval\
+→ merge\
+→ rerank\
+→ context compression\
+→ LLM\
+→ citations
 
- Keep each retrieval strategy independently testable.
+Keep each retrieval strategy independently testable.
 
- Do not implement agents yet.
+Do not implement agents yet.
 
- Include tests comparing basic and advanced retrieval.
+Include tests comparing basic and advanced retrieval.
 
 ---
 
- # 11\. Block 11 — Code RAG
+# 11\. Block 11 — Code RAG
 
- **Topic:** GitHub/codebase understanding.
+**Topic:** GitHub/codebase understanding.
 
- Block 11 — Code Repository RAG Prompt
+Block 11 — Code Repository RAG Prompt
 
 Implement BLOCK 11 only: codebase-aware RAG.
 
- Create code-specific ingestion functionality.
+Create code-specific ingestion functionality.
 
- Support:
+Support:
 
- - TypeScript
+- TypeScript
 - JavaScript
 - JSON
 - YAML
 - Markdown
 
- Implement:
+Implement:
 
- - language detection
+- language detection
 - source-file filtering
 - code-aware chunking
 - symbol metadata
@@ -731,9 +723,9 @@ Implement BLOCK 11 only: codebase-aware RAG.
 - line numbers
 - repository metadata
 
- Never index:
+Never index:
 
- - node\_modules
+- node\_modules
 - .git
 - dist
 - build
@@ -741,40 +733,40 @@ Implement BLOCK 11 only: codebase-aware RAG.
 - .env
 - secrets
 
- Store metadata such as:
+Store metadata such as:
 
- repository\
- branch\
- commit\
- path\
- language\
- symbol\
- startLine\
- endLine
+repository\
+branch\
+commit\
+path\
+language\
+symbol\
+startLine\
+endLine
 
- Do not implement GitHub OAuth yet.
+Do not implement GitHub OAuth yet.
 
- Local Git repositories can be used as input.
+Local Git repositories can be used as input.
 
- Add tests.
+Add tests.
 
 ---
 
- # 12\. Block 12 — Tool System
+# 12\. Block 12 — Tool System
 
- **Topic:** function/tool calling.
+**Topic:** function/tool calling.
 
- Block 12 — Tool Calling Framework Prompt
+Block 12 — Tool Calling Framework Prompt
 
 Implement BLOCK 12 only: a reusable tool framework.
 
- Create:
+Create:
 
- packages/tools
+packages/tools
 
- Implement:
+Implement:
 
- - tool interface
+- tool interface
 - tool registry
 - Zod input schemas
 - tool execution
@@ -784,22 +776,22 @@ Implement BLOCK 12 only: a reusable tool framework.
 - permissions metadata
 - audit metadata
 
- Build initial tools:
+Build initial tools:
 
- - calculator
+- calculator
 - document search
 - project search
 - database read tool
 
- The LLM must be able to request a tool.
+The LLM must be able to request a tool.
 
- Never execute arbitrary LLM-generated code.
+Never execute arbitrary LLM-generated code.
 
- Validate all tool arguments.
+Validate all tool arguments.
 
- Add tests for:
+Add tests for:
 
- - registration
+- registration
 - schema validation
 - execution
 - errors
@@ -807,66 +799,66 @@ Implement BLOCK 12 only: a reusable tool framework.
 
 ---
 
- # 13\. Block 13 — LangChain
+# 13\. Block 13 — LangChain
 
- **Topic:** LangChain integration.
+**Topic:** LangChain integration.
 
- Block 13 — LangChain Prompt
+Block 13 — LangChain Prompt
 
 Implement BLOCK 13 only: integrate LangChain where useful.
 
- Use LangChain for appropriate abstractions such as:
+Use LangChain for appropriate abstractions such as:
 
- - models
+- models
 - prompts
 - retrievers
 - tools
 - document abstractions
 
- Do not allow LangChain-specific implementation details to leak unnecessarily through the entire application.
+Do not allow LangChain-specific implementation details to leak unnecessarily through the entire application.
 
- Keep our own domain interfaces around AI/RAG/tools.
+Keep our own domain interfaces around AI/RAG/tools.
 
- Demonstrate:
+Demonstrate:
 
- - LangChain model
+- LangChain model
 - LangChain retriever
 - LangChain tool
 
- Add tests.
+Add tests.
 
- Explain which responsibilities belong to LangChain versus our own packages.
+Explain which responsibilities belong to LangChain versus our own packages.
 
- Do not implement LangGraph yet.
+Do not implement LangGraph yet.
 
 ---
 
- # 14\. Block 14 — LangGraph
+# 14\. Block 14 — LangGraph
 
- **Topic:** agent workflow engine.
+**Topic:** agent workflow engine.
 
- Block 14 — LangGraph Prompt
+Block 14 — LangGraph Prompt
 
 Implement BLOCK 14 only: LangGraph.
 
- Create:
+Create:
 
- packages/agents
+packages/agents
 
- Implement a basic agent graph:
+Implement a basic agent graph:
 
- START\
- → analyze\
- → decide whether retrieval is required\
- → retrieve\
- → decide whether a tool is required\
- → execute tool\
- → generate answer\
- → END
+START\
+→ analyze\
+→ decide whether retrieval is required\
+→ retrieve\
+→ decide whether a tool is required\
+→ execute tool\
+→ generate answer\
+→ END
 
- Implement:
+Implement:
 
- - graph state
+- graph state
 - nodes
 - edges
 - conditional routing
@@ -874,118 +866,118 @@ Implement BLOCK 14 only: LangGraph.
 - errors
 - checkpoints where appropriate
 
- Keep agent logic inside packages/agents.
+Keep agent logic inside packages/agents.
 
- Add tests for graph transitions.
+Add tests for graph transitions.
 
- Do not implement multi-agent yet.
+Do not implement multi-agent yet.
 
 ---
 
- # 15\. Block 15 — Agent Memory
+# 15\. Block 15 — Agent Memory
 
- **Topic:** short-term + long-term memory.
+**Topic:** short-term + long-term memory.
 
- Block 15 — Agent Memory Prompt
+Block 15 — Agent Memory Prompt
 
 Implement BLOCK 15 only: AI memory.
 
- Create:
+Create:
 
- packages/memory
+packages/memory
 
- Implement:
+Implement:
 
- 1. short-term conversation memory
+1. short-term conversation memory
 2. long-term memory
 3. semantic memory
 4. episodic memory
 5. memory retrieval
 6. memory summarization
 
- Use PostgreSQL initially.
+Use PostgreSQL initially.
 
- Integrate memory into LangGraph state.
+Integrate memory into LangGraph state.
 
- Ensure memory is isolated by organization/user/project.
+Ensure memory is isolated by organization/user/project.
 
- Add tests.
+Add tests.
 
- Do not implement multi-agent yet.
+Do not implement multi-agent yet.
 
 ---
 
- # 16\. Block 16 — GitHub Integration
+# 16\. Block 16 — GitHub Integration
 
- **Topic:** real repository connection.
+**Topic:** real repository connection.
 
- Block 16 — GitHub Integration Prompt
+Block 16 — GitHub Integration Prompt
 
 Implement BLOCK 16 only: GitHub repository integration.
 
- Users should be able to connect GitHub and select a repository.
+Users should be able to connect GitHub and select a repository.
 
- Implement the backend architecture for:
+Implement the backend architecture for:
 
- GitHub connection\
- → repository selection\
- → branch selection\
- → indexing job\
- → worker\
- → repository ingestion\
- → code chunks\
- → embeddings\
- → pgvector
+GitHub connection\
+→ repository selection\
+→ branch selection\
+→ indexing job\
+→ worker\
+→ repository ingestion\
+→ code chunks\
+→ embeddings\
+→ pgvector
 
- Use GitHub APIs appropriately.
+Use GitHub APIs appropriately.
 
- Do not put GitHub credentials into the database insecurely.
+Do not put GitHub credentials into the database insecurely.
 
- Design the system so repositories can be re-indexed incrementally.
+Design the system so repositories can be re-indexed incrementally.
 
- Track:
+Track:
 
- - repository
+- repository
 - branch
 - commit
 - indexed files
 - indexing status
 - last indexed timestamp
 
- Add tests using mocks.
+Add tests using mocks.
 
- Do not build the Next.js UI yet.
+Do not build the Next.js UI yet.
 
 ---
 
- # 17\. Block 17 — GitHub Incremental Indexing
+# 17\. Block 17 — GitHub Incremental Indexing
 
- **Topic:** webhook \+ changed files.
+**Topic:** webhook \+ changed files.
 
- Block 17 — Incremental GitHub Indexing Prompt
+Block 17 — Incremental GitHub Indexing Prompt
 
 Implement BLOCK 17 only: incremental repository indexing.
 
- Build:
+Build:
 
- GitHub push event\
- → webhook\
- → verify webhook\
- → identify changed files\
- → queue indexing job\
- → reprocess changed files\
- → remove deleted files/chunks\
- → update vectors
+GitHub push event\
+→ webhook\
+→ verify webhook\
+→ identify changed files\
+→ queue indexing job\
+→ reprocess changed files\
+→ remove deleted files/chunks\
+→ update vectors
 
- Avoid re-indexing the entire repository unnecessarily.
+Avoid re-indexing the entire repository unnecessarily.
 
- Track commit SHA.
+Track commit SHA.
 
- Implement idempotency.
+Implement idempotency.
 
- Add tests for:
+Add tests for:
 
- - added file
+- added file
 - modified file
 - deleted file
 - duplicate webhook
@@ -993,310 +985,310 @@ Implement BLOCK 17 only: incremental repository indexing.
 
 ---
 
- # 18\. Block 18 — MCP
+# 18\. Block 18 — MCP
 
- **Topic:** Model Context Protocol.
+**Topic:** Model Context Protocol.
 
- Block 18 — MCP Prompt
+Block 18 — MCP Prompt
 
 Implement BLOCK 18 only: MCP.
 
- Create:
+Create:
 
- packages/mcp
+packages/mcp
 
- Implement:
+Implement:
 
- - MCP client abstraction
+- MCP client abstraction
 - MCP server abstraction
 - tool discovery
 - resource discovery
 - MCP tool invocation
 
- Create one small local custom MCP server for this project.
+Create one small local custom MCP server for this project.
 
- Demonstrate the difference between:
+Demonstrate the difference between:
 
- normal internal tools
+normal internal tools
 
- and
+and
 
- MCP tools.
+MCP tools.
 
- Keep MCP optional so existing tools continue working.
+Keep MCP optional so existing tools continue working.
 
- Add tests and local development instructions.
+Add tests and local development instructions.
 
 ---
 
- # 19\. Block 19 — Human-in-the-Loop
+# 19\. Block 19 — Human-in-the-Loop
 
- **Topic:** approvals.
+**Topic:** approvals.
 
- Block 19 — Human Approval Prompt
+Block 19 — Human Approval Prompt
 
 Implement BLOCK 19 only: human-in-the-loop approvals.
 
- Implement approval workflow:
+Implement approval workflow:
 
- Agent\
- → sensitive action\
- → approval request\
- → WAIT\
- → human approve/reject\
- → resume graph
+Agent\
+→ sensitive action\
+→ approval request\
+→ WAIT\
+→ human approve/reject\
+→ resume graph
 
- Create approval persistence.
+Create approval persistence.
 
- Support:
+Support:
 
- - pending
+- pending
 - approved
 - rejected
 - expired
 
- Sensitive actions should require approval.
+Sensitive actions should require approval.
 
- Examples:
+Examples:
 
- - create Jira ticket
+- create Jira ticket
 - modify GitHub
 - deploy
 - send Slack message
 - write database
 
- Integrate with LangGraph interrupts/checkpoints.
+Integrate with LangGraph interrupts/checkpoints.
 
- Add tests.
+Add tests.
 
 ---
 
- # 20\. Block 20 — Multi-Agent
+# 20\. Block 20 — Multi-Agent
 
- **Topic:** supervisor + specialist agents.
+**Topic:** supervisor + specialist agents.
 
- Block 20 — Multi-Agent Prompt
+Block 20 — Multi-Agent Prompt
 
 Implement BLOCK 20 only: multi-agent architecture.
 
- Create:
+Create:
 
- Supervisor Agent\
- Research Agent\
- Coding Agent\
- Operations Agent
+Supervisor Agent\
+Research Agent\
+Coding Agent\
+Operations Agent
 
- Architecture:
+Architecture:
 
- Supervisor\
- ├── Research Agent\
- ├── Coding Agent\
- └── Operations Agent
+Supervisor\
+├── Research Agent\
+├── Coding Agent\
+└── Operations Agent
 
- Use LangGraph.
+Use LangGraph.
 
- Implement shared state carefully.
+Implement shared state carefully.
 
- The supervisor should delegate rather than duplicate specialist functionality.
+The supervisor should delegate rather than duplicate specialist functionality.
 
- Add tests for routing/delegation.
+Add tests for routing/delegation.
 
- Do not build unnecessary autonomous behavior.
+Do not build unnecessary autonomous behavior.
 
- Keep agents deterministic where possible.
+Keep agents deterministic where possible.
 
 ---
 
- # 21\. Block 21 — Multimodal
+# 21\. Block 21 — Multimodal
 
- **Topic:** images/PDF/vision.
+**Topic:** images/PDF/vision.
 
- Block 21 — Multimodal AI Prompt
+Block 21 — Multimodal AI Prompt
 
 Implement BLOCK 21 only: multimodal AI.
 
- Support:
+Support:
 
- - image input
+- image input
 - screenshots
 - architecture diagrams
 - PDF visual content
 
- Integrate vision-capable models through packages/ai.
+Integrate vision-capable models through packages/ai.
 
- Extend RAG to support multimodal document metadata.
+Extend RAG to support multimodal document metadata.
 
- Example capability:
+Example capability:
 
- User uploads architecture diagram and asks:
+User uploads architecture diagram and asks:
 
- "Explain this architecture and identify dependencies."
+"Explain this architecture and identify dependencies."
 
- Add tests using mocked model responses.
+Add tests using mocked model responses.
 
- Keep the implementation provider-independent.
+Keep the implementation provider-independent.
 
 ---
 
- # 22\. Block 22 — Web Research
+# 22\. Block 22 — Web Research
 
- **Topic:** web search + source verification.
+**Topic:** web search + source verification.
 
- Block 22 — Web Research Agent Prompt
+Block 22 — Web Research Agent Prompt
 
 Implement BLOCK 22 only: web research.
 
- Create:
+Create:
 
- web search tool\
- page retrieval\
- content extraction\
- source metadata\
- citation generation
+web search tool\
+page retrieval\
+content extraction\
+source metadata\
+citation generation
 
- Build a controlled research workflow.
+Build a controlled research workflow.
 
- Architecture:
+Architecture:
 
- Question\
- → Search\
- → Retrieve pages\
- → Extract content\
- → Analyze\
- → Cross-check\
- → Answer with citations
+Question\
+→ Search\
+→ Retrieve pages\
+→ Extract content\
+→ Analyze\
+→ Cross-check\
+→ Answer with citations
 
- Implement source URLs, titles and timestamps.
+Implement source URLs, titles and timestamps.
 
- Protect the agent against web-based prompt injection.
+Protect the agent against web-based prompt injection.
 
- Add tests using mocked search results.
+Add tests using mocked search results.
 
 ---
 
- # 23\. Block 23 — GraphRAG
+# 23\. Block 23 — GraphRAG
 
- **Topic:** knowledge graph.
+**Topic:** knowledge graph.
 
- Block 23 — GraphRAG Prompt
+Block 23 — GraphRAG Prompt
 
 Implement BLOCK 23 only: GraphRAG.
 
- Create a knowledge graph representation for entities and relationships.
+Create a knowledge graph representation for entities and relationships.
 
- Example:
+Example:
 
- PaymentService\
- → depends\_on → AuthService
+PaymentService\
+→ depends\_on → AuthService
 
- PaymentService\
- → uses → PostgreSQL
+PaymentService\
+→ uses → PostgreSQL
 
- Implement:
+Implement:
 
- - entity extraction
+- entity extraction
 - relationship extraction
 - graph storage
 - graph traversal
 - graph retrieval
 - GraphRAG context generation
 
- Integrate with existing RAG without replacing normal vector RAG.
+Integrate with existing RAG without replacing normal vector RAG.
 
- Explain when graph retrieval should be used instead of vector retrieval.
+Explain when graph retrieval should be used instead of vector retrieval.
 
- Add tests.
+Add tests.
 
 ---
 
- # 24\. Block 24 — Deep Research
+# 24\. Block 24 — Deep Research
 
- **Topic:** advanced research agent.
+**Topic:** advanced research agent.
 
- Block 24 — Deep Research Prompt
+Block 24 — Deep Research Prompt
 
 Implement BLOCK 24 only: deep research workflow.
 
- Use LangGraph.
+Use LangGraph.
 
- Workflow:
+Workflow:
 
- Question\
- → Planning\
- → Search\
- → Read\
- → Extract\
- → Evaluate evidence\
- → Search again if needed\
- → Synthesize\
- → Cite sources\
- → Final report
+Question\
+→ Planning\
+→ Search\
+→ Read\
+→ Extract\
+→ Evaluate evidence\
+→ Search again if needed\
+→ Synthesize\
+→ Cite sources\
+→ Final report
 
- Implement bounded loops.
+Implement bounded loops.
 
- Prevent infinite agent execution.
+Prevent infinite agent execution.
 
- Track:
+Track:
 
- - sources
+- sources
 - searches
 - tool calls
 - reasoning state
 - execution time
 - token usage
 
- Add configurable limits:
+Add configurable limits:
 
- - max searches
+- max searches
 - max steps
 - max tokens
 - max execution time
 
- Add tests.
+Add tests.
 
 ---
 
- # 25\. Block 25 — Authentication
+# 25\. Block 25 — Authentication
 
- **Topic:** user identity.
+**Topic:** user identity.
 
- Block 25 — Authentication Prompt
+Block 25 — Authentication Prompt
 
 Implement BLOCK 25 only: authentication.
 
- Create:
+Create:
 
- packages/auth
+packages/auth
 
- Implement a production-appropriate authentication architecture.
+Implement a production-appropriate authentication architecture.
 
- Support:
+Support:
 
- - registration/login or external identity provider abstraction
+- registration/login or external identity provider abstraction
 - sessions/tokens
 - password/security handling where applicable
 - current-user resolution
 - API authentication middleware
 
- Do not implement authorization yet beyond basic authenticated-user checks.
+Do not implement authorization yet beyond basic authenticated-user checks.
 
- Ensure secrets are configurable through environment variables.
+Ensure secrets are configurable through environment variables.
 
- Add tests.
+Add tests.
 
 ---
 
- # 26\. Block 26 — Authorization + Multi-Tenancy
+# 26\. Block 26 — Authorization + Multi-Tenancy
 
- **Topic:** RBAC, organizations, project isolation.
+**Topic:** RBAC, organizations, project isolation.
 
- Block 26 — Authorization and Multi-Tenancy Prompt
+Block 26 — Authorization and Multi-Tenancy Prompt
 
 Implement BLOCK 26 only.
 
- Implement:
+Implement:
 
- - organizations
+- organizations
 - memberships
 - roles
 - permissions
@@ -1304,36 +1296,36 @@ Implement BLOCK 26 only.
 - resource ownership
 - tenant isolation
 
- Example roles:
+Example roles:
 
- Viewer\
- Developer\
- Manager\
- Admin
+Viewer\
+Developer\
+Manager\
+Admin
 
- Every database query involving tenant data must enforce appropriate organization/project boundaries.
+Every database query involving tenant data must enforce appropriate organization/project boundaries.
 
- Tool execution must also check authorization.
+Tool execution must also check authorization.
 
- Add security tests specifically for cross-tenant access.
+Add security tests specifically for cross-tenant access.
 
 ---
 
- # 27\. Block 27 — Guardrails
+# 27\. Block 27 — Guardrails
 
- **Topic:** AI security.
+**Topic:** AI security.
 
- Block 27 — AI Guardrails Prompt
+Block 27 — AI Guardrails Prompt
 
 Implement BLOCK 27 only: AI guardrails.
 
- Create:
+Create:
 
- packages/guardrails
+packages/guardrails
 
- Implement:
+Implement:
 
- - input validation
+- input validation
 - output validation
 - prompt injection detection
 - indirect prompt injection defenses
@@ -1342,40 +1334,40 @@ Implement BLOCK 27 only: AI guardrails.
 - maximum execution limits
 - content validation
 
- Important:
+Important:
 
- Never treat LLM output as trusted.
+Never treat LLM output as trusted.
 
- Tool arguments must be schema validated and authorization checked before execution.
+Tool arguments must be schema validated and authorization checked before execution.
 
- Add security tests.
+Add security tests.
 
- Do not claim guardrails can perfectly detect prompt injection; use layered defenses.
+Do not claim guardrails can perfectly detect prompt injection; use layered defenses.
 
 ---
 
- # 28\. Block 28 — Evaluation
+# 28\. Block 28 — Evaluation
 
- **Topic:** AI evaluation framework.
+**Topic:** AI evaluation framework.
 
- Block 28 — AI Evaluation Prompt
+Block 28 — AI Evaluation Prompt
 
 Implement BLOCK 28 only: AI evaluation.
 
- Create:
+Create:
 
- packages/evaluation
+packages/evaluation
 
- Implement datasets and evaluators for:
+Implement datasets and evaluators for:
 
- RAG\
- Agents\
- Tools\
- Citations
+RAG\
+Agents\
+Tools\
+Citations
 
- Measure:
+Measure:
 
- - retrieval relevance
+- retrieval relevance
 - answer relevance
 - faithfulness
 - citation correctness
@@ -1383,31 +1375,31 @@ Implement BLOCK 28 only: AI evaluation.
 - tool argument correctness
 - task completion
 
- Create a regression evaluation suite.
+Create a regression evaluation suite.
 
- Allow evaluations to run from the command line.
+Allow evaluations to run from the command line.
 
- Add JSON-based evaluation datasets.
+Add JSON-based evaluation datasets.
 
- Do not make evaluation logic part of production request handling.
+Do not make evaluation logic part of production request handling.
 
 ---
 
- # 29\. Block 29 — Observability
+# 29\. Block 29 — Observability
 
- **Topic:** tracing, metrics, logs.
+**Topic:** tracing, metrics, logs.
 
- Block 29 — AI Observability Prompt
+Block 29 — AI Observability Prompt
 
 Implement BLOCK 29 only: observability.
 
- Create:
+Create:
 
- packages/observability
+packages/observability
 
- Track:
+Track:
 
- - request ID
+- request ID
 - traces
 - spans
 - model calls
@@ -1419,109 +1411,109 @@ Implement BLOCK 29 only: observability.
 - errors
 - cost
 
- Use OpenTelemetry-compatible architecture.
+Use OpenTelemetry-compatible architecture.
 
- Every AI request should be traceable from:
+Every AI request should be traceable from:
 
- API\
- → Agent\
- → RAG\
- → Tool\
- → Model\
- → Response
+API\
+→ Agent\
+→ RAG\
+→ Tool\
+→ Model\
+→ Response
 
- Do not log secrets or sensitive user data unnecessarily.
+Do not log secrets or sensitive user data unnecessarily.
 
- Add tests.
+Add tests.
 
 ---
 
- # 30\. Block 30 — Cost \+ Model Routing
+# 30\. Block 30 — Cost \+ Model Routing
 
- **Topic:** model selection and optimization.
+**Topic:** model selection and optimization.
 
- Block 30 — Model Routing and Cost Prompt
+Block 30 — Model Routing and Cost Prompt
 
 Implement BLOCK 30 only.
 
- Implement:
+Implement:
 
- - model routing
+- model routing
 - cost tracking
 - token budgets
 - fallback models
 - provider fallback
 - configurable model selection
 
- Example:
+Example:
 
- Simple classification\
- → cheaper model
+Simple classification\
+→ cheaper model
 
- Complex reasoning\
- → stronger model
+Complex reasoning\
+→ stronger model
 
- Vision\
- → vision model
+Vision\
+→ vision model
 
- Embedding\
- → embedding model
+Embedding\
+→ embedding model
 
- Keep routing policy configurable.
+Keep routing policy configurable.
 
- Do not hard-code provider-specific business logic throughout the application.
+Do not hard-code provider-specific business logic throughout the application.
 
- Add tests.
+Add tests.
 
 ---
 
- # 31. Block 31 — Caching
+# 31. Block 31 — Caching
 
- **Topic:** Redis, response cache, semantic cache.
+**Topic:** Redis, response cache, semantic cache.
 
- Block 31 — AI Caching Prompt
+Block 31 — AI Caching Prompt
 
 Implement BLOCK 31 only.
 
- Create:
+Create:
 
- packages/cache
+packages/cache
 
- Implement:
+Implement:
 
- - Redis cache
+- Redis cache
 - exact response cache
 - embedding cache
 - retrieval cache
 - configurable semantic cache abstraction
 
- Cache keys must respect:
+Cache keys must respect:
 
- - organization
+- organization
 - project
 - user
 - model
 - prompt/version where relevant
 
- Never allow cached data to cross tenants.
+Never allow cached data to cross tenants.
 
- Add cache invalidation strategy.
+Add cache invalidation strategy.
 
- Add tests.
+Add tests.
 
 ---
 
- # 32\. Block 32 — Reliability
+# 32\. Block 32 — Reliability
 
- **Topic:** production failure handling.
+**Topic:** production failure handling.
 
- Block 32 — AI Reliability Prompt
+Block 32 — AI Reliability Prompt
 
 Implement BLOCK 32 only.
 
- Add reliability mechanisms:
+Add reliability mechanisms:
 
- - timeouts
+- timeouts
 - retries
 - exponential backoff
 - circuit breaker where appropriate
@@ -1532,50 +1524,50 @@ Implement BLOCK 32 only.
 - dead-letter handling
 - graceful shutdown
 
- Apply appropriate policies to:
+Apply appropriate policies to:
 
- LLM\
- RAG\
- tools\
- external APIs\
- queues
+LLM\
+RAG\
+tools\
+external APIs\
+queues
 
- Do not blindly retry non-idempotent operations.
+Do not blindly retry non-idempotent operations.
 
- Add failure tests.
+Add failure tests.
 
 ---
 
- # 33\. Block 33 — API Completion
+# 33\. Block 33 — API Completion
 
- **Topic:** finalize backend API.
+**Topic:** finalize backend API.
 
- Block 33 — Backend API Completion Prompt
+Block 33 — Backend API Completion Prompt
 
 Now consolidate the backend without redesigning it.
 
- Review all existing backend functionality and expose clean APIs for:
+Review all existing backend functionality and expose clean APIs for:
 
- Authentication\
- Organizations\
- Projects\
- Chat\
- Streaming\
- Documents\
- Search\
- RAG\
- Repositories\
- Agents\
- Tools\
- Approvals\
- Memory\
- Evaluations\
- Usage\
- Observability
+Authentication\
+Organizations\
+Projects\
+Chat\
+Streaming\
+Documents\
+Search\
+RAG\
+Repositories\
+Agents\
+Tools\
+Approvals\
+Memory\
+Evaluations\
+Usage\
+Observability
 
- Requirements:
+Requirements:
 
- - consistent API response format
+- consistent API response format
 - validation
 - authentication
 - authorization
@@ -1584,25 +1576,25 @@ Now consolidate the backend without redesigning it.
 - request IDs
 - OpenAPI documentation where appropriate
 
- Do not build the frontend yet.
+Do not build the frontend yet.
 
- First identify inconsistencies or duplicated logic and fix them without changing the overall architecture.
+First identify inconsistencies or duplicated logic and fix them without changing the overall architecture.
 
 ---
 
- # 34\. Block 34 — Backend Testing
+# 34\. Block 34 — Backend Testing
 
- **Topic:** complete backend test suite.
+**Topic:** complete backend test suite.
 
- Block 34 — Backend Testing Prompt
+Block 34 — Backend Testing Prompt
 
 Review the complete backend and implement the missing test coverage.
 
- Use Vitest.
+Use Vitest.
 
- Create tests for:
+Create tests for:
 
- - packages
+- packages
 - API
 - database
 - RAG
@@ -1617,70 +1609,70 @@ Review the complete backend and implement the missing test coverage.
 - evaluation
 - observability
 
- Add integration tests using local Docker services.
+Add integration tests using local Docker services.
 
- Add security tests for tenant isolation and unauthorized tool execution.
+Add security tests for tenant isolation and unauthorized tool execution.
 
- Add deterministic mocks for external AI APIs.
+Add deterministic mocks for external AI APIs.
 
- Provide one root command that runs all backend tests.
+Provide one root command that runs all backend tests.
 
 ---
 
- # 35\. Block 35 — Next.js Frontend Foundation
+# 35\. Block 35 — Next.js Frontend Foundation
 
- **Topic:** frontend starts only now.
+**Topic:** frontend starts only now.
 
- Block 35 — Next.js Frontend Prompt
+Block 35 — Next.js Frontend Prompt
 
 Implement BLOCK 35 only: Next.js frontend foundation.
 
- Create:
+Create:
 
- apps/web
+apps/web
 
- Use:
+Use:
 
- - Next.js
+- Next.js
 - React
 - TypeScript
 - Tailwind
 
- Create application layout and navigation.
+Create application layout and navigation.
 
- Pages:
+Pages:
 
- Dashboard\
- Chat\
- Documents\
- Repositories\
- Agents\
- Approvals\
- Evaluations\
- Observability\
- Settings
+Dashboard\
+Chat\
+Documents\
+Repositories\
+Agents\
+Approvals\
+Evaluations\
+Observability\
+Settings
 
- Do not implement detailed functionality yet.
+Do not implement detailed functionality yet.
 
- Create a clean frontend architecture that consumes the existing API.
+Create a clean frontend architecture that consumes the existing API.
 
- Do not move backend business logic into Next.js.
+Do not move backend business logic into Next.js.
 
 ---
 
- # 36\. Block 36 — Chat UI
+# 36\. Block 36 — Chat UI
 
- **Topic:** streaming AI chat.
+**Topic:** streaming AI chat.
 
- Block 36 — Chat UI Prompt
+Block 36 — Chat UI Prompt
 
 Implement BLOCK 36 only.
 
- Build the Chat interface.
+Build the Chat interface.
 
- Support:
+Support:
 
- - conversation list
+- conversation list
 - message history
 - streaming responses
 - loading state
@@ -1690,25 +1682,25 @@ Implement BLOCK 36 only.
 - tool execution indicators
 - agent status
 
- Connect to the existing API.
+Connect to the existing API.
 
- Do not duplicate AI/RAG logic in the frontend.
+Do not duplicate AI/RAG logic in the frontend.
 
- The backend remains the source of truth.
+The backend remains the source of truth.
 
 ---
 
- # 37\. Block 37 — Knowledge Base UI
+# 37\. Block 37 — Knowledge Base UI
 
- **Topic:** documents + RAG.
+**Topic:** documents + RAG.
 
- Block 37 — Knowledge Base UI Prompt
+Block 37 — Knowledge Base UI Prompt
 
 Implement BLOCK 37 only.
 
- Build UI for:
+Build UI for:
 
- - document upload
+- document upload
 - document list
 - processing status
 - document deletion
@@ -1716,42 +1708,42 @@ Implement BLOCK 37 only.
 - citations
 - ingestion errors
 
- Show:
+Show:
 
- UPLOADED\
- PROCESSING\
- READY\
- FAILED
+UPLOADED\
+PROCESSING\
+READY\
+FAILED
 
- Connect to existing APIs.
+Connect to existing APIs.
 
- Do not implement ingestion logic in the frontend.
+Do not implement ingestion logic in the frontend.
 
 ---
 
- # 38\. Block 38 — GitHub UI
+# 38\. Block 38 — GitHub UI
 
- **Topic:** repository connection.
+**Topic:** repository connection.
 
- Block 38 — GitHub UI Prompt
+Block 38 — GitHub UI Prompt
 
 Implement BLOCK 38 only.
 
- Create repository management UI.
+Create repository management UI.
 
- Flow:
+Flow:
 
- Connect GitHub\
- → Select organization\
- → Select repository\
- → Select branch\
- → Index repository\
- → Show progress\
- → Show indexed status
+Connect GitHub\
+→ Select organization\
+→ Select repository\
+→ Select branch\
+→ Index repository\
+→ Show progress\
+→ Show indexed status
 
- Display:
+Display:
 
- - repository
+- repository
 - branch
 - commit
 - file count
@@ -1759,21 +1751,21 @@ Implement BLOCK 38 only.
 - indexing status
 - last indexed time
 
- Use existing backend APIs.
+Use existing backend APIs.
 
 ---
 
- # 39\. Block 39 — Agent UI
+# 39\. Block 39 — Agent UI
 
- **Topic:** agents and workflows.
+**Topic:** agents and workflows.
 
- Block 39 — Agent UI Prompt
+Block 39 — Agent UI Prompt
 
 Implement BLOCK 39 only.
 
- Create UI for:
+Create UI for:
 
- - available agents
+- available agents
 - agent execution
 - execution status
 - tool calls
@@ -1782,25 +1774,25 @@ Implement BLOCK 39 only.
 - errors
 - execution history
 
- Agents should be invoked through the existing API.
+Agents should be invoked through the existing API.
 
- Do not implement agent logic in Next.js.
+Do not implement agent logic in Next.js.
 
 ---
 
- # 40\. Block 40 — Human Approval UI
+# 40\. Block 40 — Human Approval UI
 
- **Topic:** approval interface.
+**Topic:** approval interface.
 
- Block 40 — Human Approval UI Prompt
+Block 40 — Human Approval UI Prompt
 
 Implement BLOCK 40 only.
 
- Create an approval center.
+Create an approval center.
 
- Display:
+Display:
 
- - pending approvals
+- pending approvals
 - action
 - agent
 - requested tool
@@ -1809,28 +1801,28 @@ Implement BLOCK 40 only.
 - risk information
 - created time
 
- Actions:
+Actions:
 
- Approve\
- Reject
+Approve\
+Reject
 
- After approval/rejection, update the UI and show workflow status.
+After approval/rejection, update the UI and show workflow status.
 
- Use existing backend approval APIs.
+Use existing backend approval APIs.
 
 ---
 
- # 41\. Block 41 — Evaluation Dashboard
+# 41\. Block 41 — Evaluation Dashboard
 
- **Topic:** AI quality.
+**Topic:** AI quality.
 
- Block 41 — Evaluation Dashboard Prompt
+Block 41 — Evaluation Dashboard Prompt
 
 Implement BLOCK 41 only.
 
- Create evaluation dashboard showing:
+Create evaluation dashboard showing:
 
- - evaluation datasets
+- evaluation datasets
 - evaluation runs
 - pass/fail
 - retrieval metrics
@@ -1840,23 +1832,23 @@ Implement BLOCK 41 only.
 - task completion
 - regression results
 
- Connect to packages/evaluation through API endpoints.
+Connect to packages/evaluation through API endpoints.
 
- Do not run evaluation logic directly inside the browser.
+Do not run evaluation logic directly inside the browser.
 
 ---
 
- # 42\. Block 42 — Observability Dashboard
+# 42\. Block 42 — Observability Dashboard
 
- **Topic:** AI operations.
+**Topic:** AI operations.
 
- Block 42 — Observability Dashboard Prompt
+Block 42 — Observability Dashboard Prompt
 
 Implement BLOCK 42 only.
 
- Create dashboard for:
+Create dashboard for:
 
- - requests
+- requests
 - agent runs
 - model calls
 - tokens
@@ -1867,32 +1859,32 @@ Implement BLOCK 42 only.
 - tools
 - traces
 
- Allow selecting an individual AI execution and viewing:
+Allow selecting an individual AI execution and viewing:
 
- API\
- → Agent\
- → RAG\
- → Tools\
- → Models\
- → Final response
+API\
+→ Agent\
+→ RAG\
+→ Tools\
+→ Models\
+→ Final response
 
- Use existing observability APIs.
+Use existing observability APIs.
 
 ---
 
- # 43\. Block 43 — E2E Testing
+# 43\. Block 43 — E2E Testing
 
- **Topic:** Playwright.
+**Topic:** Playwright.
 
- Block 43 — E2E Testing Prompt
+Block 43 — E2E Testing Prompt
 
 Implement BLOCK 43 only.
 
- Add Playwright E2E tests.
+Add Playwright E2E tests.
 
- Test critical flows:
+Test critical flows:
 
- 1. Login
+1. Login
 2. Create project
 3. Upload document
 4. Wait for ingestion
@@ -1905,29 +1897,29 @@ Implement BLOCK 43 only.
 11. Approve tool execution
 12. View execution history
 
- Use test fixtures and deterministic mocks where external services would make tests unreliable.
+Use test fixtures and deterministic mocks where external services would make tests unreliable.
 
 ---
 
- # 44\. Block 44 — Docker Local Environment
+# 44\. Block 44 — Docker Local Environment
 
- **Topic:** complete local development.
+**Topic:** complete local development.
 
- Block 44 — Local Docker Environment Prompt
+Block 44 — Local Docker Environment Prompt
 
 Finalize local development infrastructure.
 
- Docker Compose should provide:
+Docker Compose should provide:
 
- PostgreSQL\
- pgvector\
- Redis\
- MinIO\
- optional observability services
+PostgreSQL\
+pgvector\
+Redis\
+MinIO\
+optional observability services
 
- Document:
+Document:
 
- - startup
+- startup
 - shutdown
 - migrations
 - seeding
@@ -1935,55 +1927,55 @@ Finalize local development infrastructure.
 - logs
 - troubleshooting
 
- Ensure the complete backend can run locally with minimal manual setup.
+Ensure the complete backend can run locally with minimal manual setup.
 
- Create a developer README.
+Create a developer README.
 
 ---
 
- # 45\. Block 45 — CI/CD
+# 45\. Block 45 — CI/CD
 
- **Topic:** GitHub Actions.
+**Topic:** GitHub Actions.
 
- Block 45 — CI/CD Prompt
+Block 45 — CI/CD Prompt
 
 Implement CI/CD.
 
- Pipeline:
+Pipeline:
 
- Pull Request\
- → install\
- → lint\
- → typecheck\
- → unit tests\
- → integration tests\
- → build\
- → security checks\
- → AI evaluation
+Pull Request\
+→ install\
+→ lint\
+→ typecheck\
+→ unit tests\
+→ integration tests\
+→ build\
+→ security checks\
+→ AI evaluation
 
- Create GitHub Actions workflows.
+Create GitHub Actions workflows.
 
- Do not deploy to production yet.
+Do not deploy to production yet.
 
- Use caching appropriately.
+Use caching appropriately.
 
- Ensure secrets are handled through GitHub Actions secrets.
+Ensure secrets are handled through GitHub Actions secrets.
 
 ---
 
- # 46\. Block 46 — Production Readiness Review
+# 46\. Block 46 — Production Readiness Review
 
- This is the final session.
+This is the final session.
 
- Block 46 — Production Architecture Review Prompt
+Block 46 — Production Architecture Review Prompt
 
 Perform a complete architecture review of the existing AI Engineering Platform.
 
- Do NOT rewrite the project blindly.
+Do NOT rewrite the project blindly.
 
- Review:
+Review:
 
- - monorepo architecture
+- monorepo architecture
 - package boundaries
 - dependency graph
 - API
@@ -2013,9 +2005,9 @@ Perform a complete architecture review of the existing AI Engineering Platform.
 - Docker
 - CI/CD
 
- Identify:
+Identify:
 
- 1. architectural problems
+1. architectural problems
 2. duplicated functionality
 3. circular dependencies
 4. security problems
@@ -2026,23 +2018,23 @@ Perform a complete architecture review of the existing AI Engineering Platform.
 9. missing AI evaluation
 10. missing observability
 
- For every issue:
+For every issue:
 
- - explain why it matters
+- explain why it matters
 - identify the affected files/packages
 - propose the smallest appropriate fix
 
- Do not introduce unnecessary technologies.
+Do not introduce unnecessary technologies.
 
- Preserve the existing architecture where it is sound.
+Preserve the existing architecture where it is sound.
 
- At the end provide a final architecture diagram and a production-readiness checklist.
+At the end provide a final architecture diagram and a production-readiness checklist.
 
 ---
 
- # Recommended session sequence
+# Recommended session sequence
 
- Use them in this order:
+Use them in this order:
 
 ```
 01  Monorepo Foundation
@@ -2093,9 +2085,9 @@ Perform a complete architecture review of the existing AI Engineering Platform.
 46  Production review
 ```
 
- ## One important rule for using these prompts
+## One important rule for using these prompts
 
- At the start of every new ChatGPT session, paste:
+At the start of every new ChatGPT session, paste:
 
 ```
 MASTER CONTEXT
@@ -2103,27 +2095,25 @@ MASTER CONTEXT
 BLOCK N PROMPT
 ```
 
- Then tell it:
+Then tell it:
 
- > **"First inspect the existing repository and continue from the current implementation. Do not recreate the project from scratch."**
+> **"First inspect the existing repository and continue from the current implementation. Do not recreate the project from scratch."**
 
- That is particularly important from Block 10 onward. Each new session should **read the actual files in your repository and adapt to what is already there**, rather than trusting the previous conversation's description.
+That is particularly important from Block 10 onward. Each new session should **read the actual files in your repository and adapt to what is already there**, rather than trusting the previous conversation's description.
 
- Also, I would **not ask each session to generate the entire project again**. Ask it to implement only that block, run/describe tests, and preserve everything already working. This will keep the codebase much more consistent across dozens of sessions.
+Also, I would **not ask each session to generate the entire project again**. Ask it to implement only that block, run/describe tests, and preserve everything already working. This will keep the codebase much more consistent across dozens of sessions.
 
+Yes. Your list is strong on **application + AI engineering**, but it is missing a proper **Infrastructure & Operations track**.
 
+I would add these blocks **after CI/CD and before the final production review**.
 
- Yes. Your list is strong on **application + AI engineering**, but it is missing a proper **Infrastructure & Operations track**.
+## Infrastructure & Operations blocks
 
- I would add these blocks **after CI/CD and before the final production review**.
+### Block 47 — Infrastructure Architecture
 
- ## Infrastructure & Operations blocks
+Cover:
 
- ### Block 47 — Infrastructure Architecture
-
- Cover:
-
- - AWS/GCP/Azure architecture
+- AWS/GCP/Azure architecture
 - VPC/networking
 - public/private subnets
 - load balancer
@@ -2139,15 +2129,15 @@ BLOCK N PROMPT
 - container registry
 - compute
 
- The goal is to map your local architecture to production infrastructure without changing the application architecture.
+The goal is to map your local architecture to production infrastructure without changing the application architecture.
 
 ---
 
- ### Block 48 — Production Docker
+### Block 48 — Production Docker
 
- Cover:
+Cover:
 
- - multi-stage Dockerfiles
+- multi-stage Dockerfiles
 - minimal images
 - non-root containers
 - health checks
@@ -2157,7 +2147,7 @@ BLOCK N PROMPT
 - vulnerability scanning
 - container resource limits
 
- You should have separate images for:
+You should have separate images for:
 
 ```
 api
@@ -2168,11 +2158,11 @@ web
 
 ---
 
- ### Block 49 — Kubernetes
+### Block 49 — Kubernetes
 
- This is where Kubernetes becomes useful.
+This is where Kubernetes becomes useful.
 
- Cover:
+Cover:
 
 ```
 Deployment
@@ -2188,7 +2178,7 @@ Namespace
 RBAC
 ```
 
- Architecture:
+Architecture:
 
 ```
                     Load Balancer
@@ -2211,9 +2201,9 @@ RBAC
 
 ---
 
- ### Block 50 — Terraform / Infrastructure as Code
+### Block 50 — Terraform / Infrastructure as Code
 
- Create:
+Create:
 
 ```
 infrastructure/
@@ -2232,9 +2222,9 @@ infrastructure/
         └── production/
 ```
 
- Learn:
+Learn:
 
- - Terraform state
+- Terraform state
 - modules
 - variables
 - outputs
@@ -2245,11 +2235,11 @@ infrastructure/
 
 ---
 
- ### Block 51 — Secrets & Configuration
+### Block 51 — Secrets & Configuration
 
- This deserves its own block.
+This deserves its own block.
 
- Cover:
+Cover:
 
 ```
 Local
@@ -2265,24 +2255,24 @@ Production
 Cloud Secret Manager / Vault
 ```
 
- Manage:
+Manage:
 
- - database credentials
+- database credentials
 - API keys
 - GitHub credentials
 - OAuth secrets
 - encryption keys
 - JWT/session secrets
 
- Also cover **secret rotation** and preventing secrets from appearing in logs.
+Also cover **secret rotation** and preventing secrets from appearing in logs.
 
 ---
 
- ### Block 52 — Monitoring
+### Block 52 — Monitoring
 
- Go beyond application logging.
+Go beyond application logging.
 
- Monitor:
+Monitor:
 
 ```
 Infrastructure
@@ -2307,7 +2297,7 @@ AI
 └── Agent failures
 ```
 
- A useful architecture is:
+A useful architecture is:
 
 ```
 Application
@@ -2326,13 +2316,13 @@ OpenTelemetry
 
 ---
 
- ### Block 53 — Alerting
+### Block 53 — Alerting
 
- Monitoring tells you **what is happening**.
+Monitoring tells you **what is happening**.
 
- Alerting tells you **when you need to act**.
+Alerting tells you **when you need to act**.
 
- Examples:
+Examples:
 
 ```
 API error rate > threshold
@@ -2347,15 +2337,15 @@ Disk nearly full
 Certificate approaching expiration
 ```
 
- Build alert policies and escalation rules.
+Build alert policies and escalation rules.
 
 ---
 
- ### Block 54 — Logging
+### Block 54 — Logging
 
- Implement centralized structured logging.
+Implement centralized structured logging.
 
- Example:
+Example:
 
 ```
 {
@@ -2370,11 +2360,11 @@ Certificate approaching expiration
 }
 ```
 
- Important:
+Important:
 
- **Never log:**
+**Never log:**
 
- - API keys
+- API keys
 - passwords
 - OAuth tokens
 - secrets
@@ -2383,11 +2373,11 @@ Certificate approaching expiration
 
 ---
 
- ### Block 55 — Distributed Tracing
+### Block 55 — Distributed Tracing
 
- This is particularly valuable for your AI platform.
+This is particularly valuable for your AI platform.
 
- You want to see:
+You want to see:
 
 ```
 HTTP Request
@@ -2407,17 +2397,17 @@ Agent Run
      └── LLM Call
 ```
 
- Then investigate:
+Then investigate:
 
- > Why did this request take 12 seconds?
+> Why did this request take 12 seconds?
 
- and see exactly where the time went.
+and see exactly where the time went.
 
 ---
 
- ### Block 56 — Queue Operations
+### Block 56 — Queue Operations
 
- Your system will eventually have lots of asynchronous work:
+Your system will eventually have lots of asynchronous work:
 
 ```
 GitHub indexing
@@ -2430,9 +2420,9 @@ Emails
 Webhooks
 ```
 
- So cover:
+So cover:
 
- - queue depth
+- queue depth
 - retries
 - dead-letter queues
 - stuck jobs
@@ -2444,11 +2434,11 @@ Webhooks
 
 ---
 
- ### Block 57 — Database Operations
+### Block 57 — Database Operations
 
- Cover:
+Cover:
 
- - PostgreSQL backups
+- PostgreSQL backups
 - point-in-time recovery
 - migrations
 - connection pooling
@@ -2459,17 +2449,17 @@ Webhooks
 - database monitoring
 - restore testing
 
- Most importantly:
+Most importantly:
 
- > **A backup that has never been restored is not a verified backup strategy.**
+> **A backup that has never been restored is not a verified backup strategy.**
 
- Include restore drills.
+Include restore drills.
 
 ---
 
- ### Block 58 — Disaster Recovery
+### Block 58 — Disaster Recovery
 
- Design:
+Design:
 
 ```
 Primary
@@ -2483,9 +2473,9 @@ Primary
 Recovery Environment
 ```
 
- Define:
+Define:
 
- - RPO
+- RPO
 - RTO
 - backup frequency
 - retention
@@ -2496,11 +2486,11 @@ Recovery Environment
 
 ---
 
- ### Block 59 — Security Operations
+### Block 59 — Security Operations
 
- Cover:
+Cover:
 
- - IAM
+- IAM
 - least privilege
 - network policies
 - container security
@@ -2513,7 +2503,7 @@ Recovery Environment
 - vulnerability management
 - security incident response
 
- For your AI system, also include:
+For your AI system, also include:
 
 ```
 Prompt Injection
@@ -2527,11 +2517,11 @@ MCP Tool Abuse
 
 ---
 
- ### Block 60 — Cost Operations / FinOps
+### Block 60 — Cost Operations / FinOps
 
- This is especially important for an AI application.
+This is especially important for an AI application.
 
- Track:
+Track:
 
 ```
 Infrastructure cost
@@ -2549,7 +2539,7 @@ LLM cost
 Embedding cost
 ```
 
- Then calculate:
+Then calculate:
 
 ```
 cost / request
@@ -2560,13 +2550,13 @@ cost / document
 cost / million tokens
 ```
 
- You can then build budgets and alerts.
+You can then build budgets and alerts.
 
 ---
 
- ### Block 61 — Scaling
+### Block 61 — Scaling
 
- Learn how each component scales independently:
+Learn how each component scales independently:
 
 ```
                  Load
@@ -2584,9 +2574,9 @@ cost / million tokens
  PostgreSQL    Redis
 ```
 
- Cover:
+Cover:
 
- - horizontal scaling
+- horizontal scaling
 - autoscaling
 - worker autoscaling
 - queue-based scaling
@@ -2597,9 +2587,9 @@ cost / million tokens
 
 ---
 
- ### Block 62 — Production Deployment
+### Block 62 — Production Deployment
 
- Finally create:
+Finally create:
 
 ```
 Development
@@ -2621,9 +2611,9 @@ Approval
 Production
 ```
 
- Include:
+Include:
 
- - blue/green or rolling deployment
+- blue/green or rolling deployment
 - migrations
 - health checks
 - readiness checks
@@ -2633,13 +2623,13 @@ Production
 
 ---
 
- ### Block 63 — SRE / Incident Management
+### Block 63 — SRE / Incident Management
 
- This is the piece many AI projects skip.
+This is the piece many AI projects skip.
 
- Learn:
+Learn:
 
- - SLIs
+- SLIs
 - SLOs
 - SLAs
 - error budgets
@@ -2650,7 +2640,7 @@ Production
 - on-call
 - escalation
 
- Example:
+Example:
 
 ```
 SLO
@@ -2660,7 +2650,7 @@ SLO
 < 1% failed background jobs
 ```
 
- Then create runbooks:
+Then create runbooks:
 
 ```
 RUNBOOK: Redis Down
@@ -2677,9 +2667,9 @@ RUNBOOK: Redis Down
 
 ---
 
- # Updated overall roadmap
+# Updated overall roadmap
 
- Your complete learning project now becomes:
+Your complete learning project now becomes:
 
 ```
 FOUNDATION
@@ -2766,4 +2756,4 @@ INFRASTRUCTURE
 63  SRE / Incident Management
 ```
 
- That gives you a much more complete **AI platform engineering curriculum**: you're not just learning LangChain/RAG/LangGraph, but also the infrastructure, reliability, security, observability, and operational practices needed to actually run those systems.
+That gives you a much more complete **AI platform engineering curriculum**: you're not just learning LangChain/RAG/LangGraph, but also the infrastructure, reliability, security, observability, and operational practices needed to actually run those systems.
