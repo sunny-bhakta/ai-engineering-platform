@@ -38,7 +38,10 @@
     "db:migrate": "pnpm --filter @ai-platform/database db:migrate",
     "db:reset": "pnpm --filter @ai-platform/database db:reset",
     "db:seed": "pnpm --filter @ai-platform/database db:seed",
-    "db:test": "pnpm --filter @ai-platform/database test"
+    "db:test": "pnpm --filter @ai-platform/database test",
+    "ai:test": "pnpm --filter @ai-platform/ai test",
+    "ai:typecheck": "pnpm --filter @ai-platform/ai typecheck",
+    "ai:build": "pnpm --filter @ai-platform/ai build"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
